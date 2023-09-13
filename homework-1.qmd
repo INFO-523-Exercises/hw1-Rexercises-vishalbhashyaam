@@ -1,0 +1,279 @@
+---
+title: "Homework-1-R-Exercises"
+author: "VISHAL BHASHYAAM"
+format: 
+  pdf:
+    toc: true
+    colorlinks: true
+    number-sections: true
+    
+editor: visual
+---
+
+## Getting to know the Data with R
+
+### Goal:
+
+Practice basic R commands/methods for descriptive data analysis.
+
+## Installing required packages
+
+```{r}
+# run install.packages if package not downloaded 
+if(!require("pacman"))
+  install.packages("pacman")
+```
+
+```{r}
+library(pacman)
+
+p_load(dlookr,
+  DMwR2,
+  GGally,
+  Hmisc,
+  palmerpenguins,
+  tidyverse
+)
+
+```
+
+Loading data
+
+The `|>` is the Base R pipe as opposed to the `magrittr` pipe `%>%`. The `|>` pipe can be utilized for most functions in R, while the `%>%` pipe is more restricted towards the `tidyverse`
+
+```{r}
+data(algae, package ="DMwR2")
+algae |> glimpse()
+```
+
+# **Central tendency: mean, median, mode**
+
+## Mean
+
+```{r}
+algae$a1 |>
+  mean()
+```
+
+## Median
+
+```{r}
+algae$a1 |>
+  median()
+```
+
+## Mode
+
+Base R doesn't have a function for mode,
+
+Creating a R function for mode, (works for unimodal, bimodal, multimodal data)
+
+```{r}
+Mode <- function(x, na.rm=FALSE){
+  if (na.rm) x<-x[!is.na(x)]
+  ux <- unique(x)
+  return(ux[which.max(tabulate(match(x,ux)))])
+}
+
+algae$mnO2 |> Mode()
+```
+
+## `DMwR` `centralValue()` function:
+
+returns the median for numerical variable, or the mode for nominal variables.
+
+```{r}
+# Numerical variable
+algae$a1 |> centralValue()
+```
+
+```{r}
+# Nominal variable
+algae$speed |> centralValue()
+```
+
+## Statistics of spread (variation)
+
+## Variance
+
+```{r}
+algae$a3 |> var()
+```
+
+## Standard deviation
+
+```{r}
+algae$a3 |> sd()
+```
+
+## Range
+
+Note that this gives you both maximum and minimum values.
+
+```{r}
+algae$a4 |> range()
+```
+
+## Maximum value
+
+```{r}
+algae$a1 |> max ()
+```
+
+## Minimum value
+
+```{r}
+algae$a1 |> min()
+```
+
+## Interquartile range
+
+3rd quartile (75%) - 1st quartile (25%)
+
+```{r}
+algae$a1 |> IQR()
+
+```
+
+## Quantiles
+
+```{r}
+algae$a1 |> quantile()
+```
+
+Specifying particular quantiles:
+
+```{r}
+algae$a1 |> quantile(probs = c(0.2,0.8))
+```
+
+## Missing values
+
+```{r}
+library(purrr)
+#compute the total number of NA values in the given dataset
+
+na_value <- algae %>%
+  purrr::map_dbl(~sum(is.na(.))) %>%
+  sum()
+
+cat("The dataset contains ", na_value, "NA values. \n" )
+```
+
+```{r}
+# Compute the number of incomplete rows in the dataset 
+
+
+  incomplete_rows <- algae %>% 
+  summarise_all(~!complete.cases(.)) %>%
+  nrow()
+```
+
+```{r}
+cat("The dataset contains ", incomplete_rows, "(out of ", nrow(algae),") incomplete rows. \n")
+```
+
+# Summaries of a dataset
+
+## Baser R's `summary()`
+
+```{r}
+algae |> summary()
+```
+
+## `Hmisc`'s `describe()`
+
+```{r}
+data("penguins")
+penguins |> Hmisc::describe()
+```
+
+GMD is the mean absolute difference between any pairs of observations. A robust dispersion measure, especially for non- normally distributed data.
+
+## `dlookr`'s `describe()`
+
+```{r}
+penguins |> dlookr::describe()
+```
+
+## Summaries on a subset of data
+
+`dplyr` 's `summarise()` and `summarise_all()` or use them with `select()` and `group_by()` to create summaries on subset of data. And,
+
+`summarise()`= `summarize()`
+
+```{r}
+algae |> 
+  summarize(avgNO3 = mean(NO3,na.rm=TRUE),
+            medA1 = median(a1))
+
+```
+
+summarize_all() can be used to apply any function that produces a scalar value to any column of a data
+
+```{r}
+algae |> 
+  select(mxPH:Cl) |> 
+  summarize_all(list(mean,median), na.rm=TRUE)
+```
+
+```{r}
+algae |> 
+  select(a1:a7) |> 
+  summarize_all(funs(var))
+```
+
+```{r}
+algae |> 
+  select (a1:a7) |> 
+  summarise_all(c("min","max"))
+```
+
+## Use `summarize()` and `group_by()`
+
+```{r}
+algae |> 
+  group_by(season, size) |> 
+  summarize(n0bs = n(), mA7=median(a7))
+```
+
+```{r}
+penguins |> 
+  group_by(species) |> 
+  summarize(var = var(bill_length_mm, na.rm = TRUE))
+```
+
+## Aggregating data
+
+Useful for summary function that don't return scalar values
+
+```{r}
+penguins |>
+  group_by(species) |>
+  reframe(var = quantile(bill_length_mm, na.rm = TRUE))
+```
+
+`reframe()` expectsd a scalar result returned by the function, but quantile returns a vector.
+
+Aggregating data with summarize was depreciated in `dplyr 1.1.0` , `reframe()` should be used instead.
+
+```{r}
+penguins |> 
+  group_by(species) |> 
+  dlookr::describe(bill_length_mm)
+
+```
+
+## Grouping functions
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
