@@ -1,11 +1,7 @@
 ---
 title: "Homework-1-R-Exercises"
 author: "VISHAL BHASHYAAM"
-format: 
-  pdf:
-    toc: true
-    colorlinks: true
-    number-sections: true
+format: html
     
 editor: visual
 ---
@@ -261,19 +257,70 @@ Aggregating data with summarize was depreciated in `dplyr 1.1.0` , `reframe()` s
 penguins |> 
   group_by(species) |> 
   dlookr::describe(bill_length_mm)
+```
+
+### List data types of the attributes in tidy dataset
+
+```{r}
+str(algae)# display data types
+
+Hmisc::describe(algae) # description of the values
+```
+
+### Check skewness in data distribution in attributes
+
+Use "`skewness()`" from `e1071` package to find the skewness in data distribution.
+
+```{r}
+if(!require("e1071"))
+  install.packages("e1071")
 
 ```
 
-## Grouping functions
+```{r}
+library(e1071)
+
+skewValue<- skewness(algae$a2)
+cat("Skewness value is, ", skewValue)
+
+```
+
+## Correlation
 
 ```{r}
+# Calculate correlations for numeric columns in the dataset
+correlation_value <- cor(algae$a1, algae$a2)
+
+
+cat("correlation between a1 and a2 : ",correlation_value)
+```
+
+## Examine number of missing values in dataset
+
+```{r}
+cat("missing values in algae dataset is : ", sum(is.na(algae)))
+```
+
+## Ways to overcome missing values:
+
+-   Either the NA values can be omitted using "`na.omit()`"
+
+```{r}
+algae_data<- na.omit(algae)
+cat("missing values in algae dataset is : ", sum(is.na(algae_data)))
+```
+
+-   Else we can take the average of the particular column to fill the NA values using `mean()`
+
+```{r}
+is.na(algae$Cl)
+
 
 ```
 
 ```{r}
+algae_1 <- algae
+algae_1$Cl[is.na(algae_1$Cl)]<-mean(algae_1$Cl,na.rm=TRUE)
 
-```
-
-```{r}
-
+algae_1$Cl
 ```

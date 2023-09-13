@@ -633,9 +633,320 @@ For the frequency table, variable is rounded to the nearest 0.02
 #   p99 &lt;dbl&gt;, p100 &lt;dbl&gt;</code></pre>
 </div>
 </div>
+<section id="list-data-types-of-the-attributes-in-tidy-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="list-data-types-of-the-attributes-in-tidy-dataset">List data types of the attributes in tidy dataset</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(algae)<span class="co"># display data types</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [200 × 18] (S3: tbl_df/tbl/data.frame)
+ $ season: Factor w/ 4 levels "autumn","spring",..: 4 2 1 2 1 4 3 1 4 4 ...
+ $ size  : Factor w/ 3 levels "large","medium",..: 3 3 3 3 3 3 3 3 3 3 ...
+ $ speed : Factor w/ 3 levels "high","low","medium": 3 3 3 3 3 1 1 1 3 1 ...
+ $ mxPH  : num [1:200] 8 8.35 8.1 8.07 8.06 8.25 8.15 8.05 8.7 7.93 ...
+ $ mnO2  : num [1:200] 9.8 8 11.4 4.8 9 13.1 10.3 10.6 3.4 9.9 ...
+ $ Cl    : num [1:200] 60.8 57.8 40 77.4 55.4 ...
+ $ NO3   : num [1:200] 6.24 1.29 5.33 2.3 10.42 ...
+ $ NH4   : num [1:200] 578 370 346.7 98.2 233.7 ...
+ $ oPO4  : num [1:200] 105 428.8 125.7 61.2 58.2 ...
+ $ PO4   : num [1:200] 170 558.8 187.1 138.7 97.6 ...
+ $ Chla  : num [1:200] 50 1.3 15.6 1.4 10.5 ...
+ $ a1    : num [1:200] 0 1.4 3.3 3.1 9.2 15.1 2.4 18.2 25.4 17 ...
+ $ a2    : num [1:200] 0 7.6 53.6 41 2.9 14.6 1.2 1.6 5.4 0 ...
+ $ a3    : num [1:200] 0 4.8 1.9 18.9 7.5 1.4 3.2 0 2.5 0 ...
+ $ a4    : num [1:200] 0 1.9 0 0 0 0 3.9 0 0 2.9 ...
+ $ a5    : num [1:200] 34.2 6.7 0 1.4 7.5 22.5 5.8 5.5 0 0 ...
+ $ a6    : num [1:200] 8.3 0 0 0 4.1 12.6 6.8 8.7 0 0 ...
+ $ a7    : num [1:200] 0 2.1 9.7 1.4 1 2.9 0 0 0 1.7 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>Hmisc<span class="sc">::</span><span class="fu">describe</span>(algae) <span class="co"># description of the values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>algae 
+
+ 18  Variables      200  Observations
+--------------------------------------------------------------------------------
+season 
+       n  missing distinct 
+     200        0        4 
+                                      
+Value      autumn spring summer winter
+Frequency      40     53     45     62
+Proportion  0.200  0.265  0.225  0.310
+--------------------------------------------------------------------------------
+size 
+       n  missing distinct 
+     200        0        3 
+                               
+Value       large medium  small
+Frequency      45     84     71
+Proportion  0.225  0.420  0.355
+--------------------------------------------------------------------------------
+speed 
+       n  missing distinct 
+     200        0        3 
+                               
+Value        high    low medium
+Frequency      84     33     83
+Proportion  0.420  0.165  0.415
+--------------------------------------------------------------------------------
+mxPH 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     199        1       72    0.998    8.012   0.6471    7.081    7.340 
+     .25      .50      .75      .90      .95 
+   7.700    8.060    8.400    8.700    8.873 
+
+lowest : 5.6  5.7  6.4  6.5  6.6 , highest: 9    9.06 9.1  9.5  9.7 
+--------------------------------------------------------------------------------
+mnO2 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     198        2       88        1    9.118    2.629    4.485    5.770 
+     .25      .50      .75      .90      .95 
+   7.725    9.800   10.800   11.700   11.815 
+
+lowest : 1.5  1.8  3.2  3.3  3.4 , highest: 12.5 12.6 12.9 13.1 13.4
+--------------------------------------------------------------------------------
+Cl 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     190       10      178        1    43.64    43.78    3.061    4.970 
+     .25      .50      .75      .90      .95 
+  10.981   32.730   57.823   88.600  130.087 
+
+lowest : 0.222   0.8     1.17    1.45    1.549  
+highest: 173.75  187.183 194.75  208.364 391.5  
+--------------------------------------------------------------------------------
+NO3 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     198        2      192        1    3.282    2.884   0.4023   0.6912 
+     .25      .50      .75      .90      .95 
+  1.2960   2.6750   4.4463   6.1916   7.9369 
+
+lowest : 0.05   0.102  0.13   0.23   0.267 , highest: 9.248  9.715  9.773  10.416 45.65 
+--------------------------------------------------------------------------------
+NH4 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     198        2      179        1    501.3    816.2    10.00    15.00 
+     .25      .50      .75      .90      .95 
+   38.33   103.17   226.95   805.33  1922.87 
+
+lowest : 5       5.8     8       10      10.5   
+highest: 4073.33 5738.33 6400    8777.6  24064  
+--------------------------------------------------------------------------------
+oPO4 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     198        2      173        1    73.59    85.46     2.00     3.94 
+     .25      .50      .75      .90      .95 
+   15.70    40.15    99.33   193.21   248.34 
+
+lowest : 1       1.25    1.333   1.625   1.8    
+highest: 346.167 412.333 428.75  467.5   564.6  
+--------------------------------------------------------------------------------
+PO4 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     198        2      189        1    137.9    133.9    6.455   11.350 
+     .25      .50      .75      .90      .95 
+  41.375  103.285  213.750  286.100  345.650 
+
+lowest : 1       2.5     3       4       6      
+highest: 558.75  586     607.167 624.733 771.6  
+--------------------------------------------------------------------------------
+Chla 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     188       12      131        1    13.97    17.93    0.500    0.800 
+     .25      .50      .75      .90      .95 
+   2.000    5.475   18.308   31.817   61.733 
+
+lowest : 0.2     0.3     0.4     0.5     0.6    
+highest: 88.255  92.667  93.683  98.817  110.456
+--------------------------------------------------------------------------------
+a1 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     200        0      121    0.994    16.92    21.52     0.00     0.00 
+     .25      .50      .75      .90      .95 
+    1.50     6.95    24.80    50.72    64.33 
+
+lowest : 0    1.1  1.2  1.4  1.5 , highest: 75.8 81.9 82.7 86.6 89.8
+--------------------------------------------------------------------------------
+a2 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     200        0       89    0.951    7.458    10.19     0.00     0.00 
+     .25      .50      .75      .90      .95 
+    0.00     3.00    11.38    21.50    28.38 
+
+lowest : 0    1    1.2  1.4  1.5 , highest: 40.7 40.9 41   53.6 72.6
+--------------------------------------------------------------------------------
+a3 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     200        0       79    0.949    4.309    6.131    0.000    0.000 
+     .25      .50      .75      .90      .95 
+   0.000    1.550    4.925   13.510   20.275 
+
+lowest : 0    1    1.1  1.2  1.4 , highest: 24.8 25.3 25.9 35.1 42.8
+--------------------------------------------------------------------------------
+a4 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     200        0       50    0.838    1.992    3.032    0.000    0.000 
+     .25      .50      .75      .90      .95 
+   0.000    0.000    2.400    5.000    7.605 
+
+lowest : 0    1    1.1  1.2  1.3 , highest: 11.5 12.7 13.4 28.8 44.6
+--------------------------------------------------------------------------------
+a5 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     200        0       81    0.938    5.064    6.923     0.00     0.00 
+     .25      .50      .75      .90      .95 
+    0.00     1.90     7.50    14.91    20.04 
+
+lowest : 0    1    1.1  1.2  1.4 , highest: 28.8 34.2 34.3 35.6 44.4
+--------------------------------------------------------------------------------
+a6 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     200        0       76    0.847    5.964    9.323    0.000    0.000 
+     .25      .50      .75      .90      .95 
+   0.000    0.000    6.925   17.110   31.815 
+
+lowest : 0    1    1.2  1.4  1.5 , highest: 42.7 49.4 52.5 64.6 77.6
+--------------------------------------------------------------------------------
+a7 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+     200        0       51    0.882    2.496    3.817     0.00     0.00 
+     .25      .50      .75      .90      .95 
+    0.00     1.00     2.40     6.10    10.88 
+
+lowest : 0    1    1.1  1.2  1.4 , highest: 22.1 25.6 30.1 31.2 31.6
+--------------------------------------------------------------------------------</code></pre>
+</div>
+</div>
 </section>
-<section id="grouping-functions" class="level2">
-<h2 class="anchored" data-anchor-id="grouping-functions">Grouping functions</h2>
+<section id="check-skewness-in-data-distribution-in-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="check-skewness-in-data-distribution-in-attributes">Check skewness in data distribution in attributes</h3>
+<p>Use “<code>skewness()</code>” from <code>e1071</code> package to find the skewness in data distribution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"e1071"</span>))</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"e1071"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: e1071</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'e1071'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:Hmisc':
+
+    impute</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:dlookr':
+
+    kurtosis, skewness</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>skewValue<span class="ot">&lt;-</span> <span class="fu">skewness</span>(algae<span class="sc">$</span>a2)</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Skewness value is, "</span>, skewValue)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Skewness value is,  2.395171</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="correlation" class="level2">
+<h2 class="anchored" data-anchor-id="correlation">Correlation</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate correlations for numeric columns in the dataset</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>correlation_value <span class="ot">&lt;-</span> <span class="fu">cor</span>(algae<span class="sc">$</span>a1, algae<span class="sc">$</span>a2)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"correlation between a1 and a2 : "</span>,correlation_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>correlation between a1 and a2 :  -0.2937678</code></pre>
+</div>
+</div>
+</section>
+<section id="examine-number-of-missing-values-in-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="examine-number-of-missing-values-in-dataset">Examine number of missing values in dataset</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"missing values in algae dataset is : "</span>, <span class="fu">sum</span>(<span class="fu">is.na</span>(algae)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>missing values in algae dataset is :  33</code></pre>
+</div>
+</div>
+</section>
+<section id="ways-to-overcome-missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="ways-to-overcome-missing-values">Ways to overcome missing values:</h2>
+<ul>
+<li>Either the NA values can be omitted using “<code>na.omit()</code>”</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>algae_data<span class="ot">&lt;-</span> <span class="fu">na.omit</span>(algae)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"missing values in algae dataset is : "</span>, <span class="fu">sum</span>(<span class="fu">is.na</span>(algae_data)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>missing values in algae dataset is :  0</code></pre>
+</div>
+</div>
+<ul>
+<li>Else we can take the average of the particular column to fill the NA values using <code>mean()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(algae<span class="sc">$</span>Cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [49] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [61]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[157] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[169] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[193] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>algae_1 <span class="ot">&lt;-</span> algae</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>algae_1<span class="sc">$</span>Cl[<span class="fu">is.na</span>(algae_1<span class="sc">$</span>Cl)]<span class="ot">&lt;-</span><span class="fu">mean</span>(algae_1<span class="sc">$</span>Cl,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>algae_1<span class="sc">$</span>Cl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1]  60.80000  57.75000  40.02000  77.36400  55.35000  65.75000  73.25000
+  [8]  59.06700  21.95000   8.00000   8.00000   8.69000   5.00000   6.30000
+ [15]   3.00000   4.70000   7.00000   7.00000   7.00000  64.00000  88.00000
+ [22]   0.80000  32.92000  11.86700  10.97500  12.53600  10.50000   9.00000
+ [29]  16.00000   9.00000  13.00000  26.00000  20.08300  34.50000  29.20000
+ [36]  30.52300   1.17000   1.45000  20.62500  22.28600  77.00000  54.19000
+ [43]  50.00000  54.14300  69.75000  87.00000  66.30000   9.00000  15.00000
+ [50]  17.75000  32.30000  27.23300   6.16700   5.27300  43.63628  43.63628
+ [57]  43.63628  43.63628  43.63628  43.63628  43.63628  43.63628   4.08300
+ [64]   4.57500   4.32600   2.93300   3.27500   3.13600  32.40000  29.77500
+ [71]  32.54000  38.12500  34.03700 136.00000 129.37500  35.75000  29.50000
+ [78]  27.40000  26.76000  11.00000  11.00000  10.40000  13.50000  12.14600
+ [85]  31.00000  53.00000  36.24800  48.66700  53.10200 125.60000 173.75000
+ [92]  94.40500  53.33300  70.00000  63.51000  56.71700  61.05000  57.75000
+ [99] 101.87500  85.98200  63.62500  82.11100  65.33300  58.33100  49.62500
+[106]  47.77800  47.22900  41.50000  40.16700  32.05600   5.88900   7.25000
+[113]   7.83800  53.42500  57.84800   0.22200   1.54900   5.83000  74.66700
+[120] 131.39999  45.27300  42.63600  48.42900  11.81800  10.55600  12.00000
+[127]  31.09100  28.33300  30.12500  10.93600  10.07800  11.08800 194.75000
+[134] 391.50000 130.67000  39.00000  35.66000  37.60000  39.00000  49.90000
+[141]  51.11300   8.30000  10.20700  79.07700  81.33300  64.09300  41.25000
+[148]  40.22600  46.16700  47.00000  41.16300  53.00000  44.20500 127.83300
+[155] 100.83000  94.00000  69.00000  50.00000  19.22000  26.00000  43.63628
+[162]  44.00000  43.00000  43.09000  16.00000  22.35000  82.85700  63.29200
+[169]  43.97000  38.90200  95.36700 151.83299 104.81800  71.44400 208.36400
+[176] 187.18300   4.54500   3.50000   5.32600   2.11100   2.20000   2.75000
+[183]   3.86000   9.05500   7.61300  39.10900  22.45500  23.25000  22.32000
+[190]  12.77800  15.54100  12.18200   7.33300  23.82500  12.44400  17.37500
+[197]  14.32000 139.98900  43.63628  82.85200</code></pre>
+</div>
+</div>
 </section>
 </section>
 
