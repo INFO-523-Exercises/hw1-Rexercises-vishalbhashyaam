@@ -1,7 +1,11 @@
 ---
 title: "Homework-1-R-Exercises"
 author: "VISHAL BHASHYAAM"
-format: html
+format: 
+  pdf:
+    toc: true
+    colorlinks: true
+    number-sections: true
     
 editor: visual
 ---
